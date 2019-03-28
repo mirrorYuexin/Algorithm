@@ -1,21 +1,49 @@
-class node:
-    def __new__(cls, x):
-        return object.__new__(cls)
-
-    def __init__(self, x):
+class Node():
+    """
+    define the data structure of single node
+    """
+    def __init__(self, x=None):
         self.data = x
         self.next = None
 
 
-def initList():
-    head = node(None)
-    temp = head
-    for i in range(1, 8):
-        subNode = node(i)
-        temp.next = subNode
-        temp = subNode
-    temp.next = None
+def initList(data=[]):
+    """
+    init a List according to the input sequence: data
+    :param data: a sequence of data belong to nodes in the list
+    :return: the head of the list
+    """
+    if data.__len__() == 0:
+        return Node() #return an empty list
+
+    head = Node
+    pre = head
+
+    for x in data:
+        subNode = Node(x)
+        pre.next = subNode
+        pre = subNode
+        subNode.next = None
+
     return head
+
+def displayList(head=None):
+    """
+    display a list
+    :param head: the head of the list
+    :return: None
+    """
+    if head == None or head.next == None:
+        print('empty list')
+        return
+
+    subNode = head.next
+
+    while subNode != None:
+        print(subNode.data, end=' ')
+        subNode = subNode.next
+
+    print('\n')
 
 
 def reverse(head):
@@ -87,22 +115,13 @@ def reverseV4(head):
     return head
 
 
-def printList(head):
-    if head == None or head.next == None:
-        print('null')
-        return
-    temp = head
-    while (temp.next != None):
-        temp = temp.next
-        print(temp.data, end=' ')
-
 
 if __name__ == '__main__':
-    head = initList()
+    head = initList([1, 2, 3, 4, 5, 6, 7])
     print('before reverse:')
-    printList(head)
+    displayList(head)
 
     # head = reverse(head)
     head = reverseV4(head)
-    print('\nafter reverse:')
-    printList(head)
+    print('after reverse:')
+    displayList(head)
